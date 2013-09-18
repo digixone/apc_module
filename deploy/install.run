@@ -1,0 +1,123 @@
+<?php
+/***
+| Symlink file apc.php.
+| You should install APC PHP cache before symlink script works
+| by: jd1pinoy@gmx.ph
+***/
+$tmp = '/apc_module :- ';
+function copyFolderContents($src, $dest) {
+	$path = realpath($src);
+	$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+	foreach($objects as $name => $object)
+	{
+		$startsAt = substr(dirname($name), strlen($src));
+		mkNewDir($dest.$startsAt);
+		if(is_writable($dest.$startsAt) and $object->isFile())
+		{
+			copy((string)$name, $dest.$startsAt.DIRECTORY_SEPARATOR.basename($name));
+			chmod($dest.$startsAt.DIRECTORY_SEPARATOR.basename($name), 0777);
+		}
+	}
+}
+function mkNewDir($folder) {
+	if(!is_dir($folder)) {
+		mkdir($folder, 0777);
+		chmod($folder, 0777);
+	}
+}
+function removeDirectoryContents($directory)
+{
+	// set the directory slash implementation for Windows if required.
+	if (sys_versions::ShowOSPlatformVersion() == "Windows")
+		$l = '\\';
+	else
+		$l = '/';
+	$files = dir($directory);
+	while ($file = $files->read())
+	{
+		if ($file != '.' && $file != '..')
+		{			
+			if (is_dir($directory.$file))
+				removeDirectoryContents($directory.$file.$l);
+			else
+				unlink($directory.$file);
+		}
+	}
+	$files->close();
+}
+// determine ZPanel root directory
+$currentDir = rtrim(dirname(__FILE__), '/\\');
+$folders = explode('/', $currentDir);
+$zpanelRoot = '';
+$i = 0;
+while ($folders[$i] != 'modules') {
+	$zpanelRoot .= $folders[$i].'/';
+	$i++;
+}
+require_once $zpanelRoot.'dryden/loader.inc.php';
+require_once $zpanelRoot.'cnf/db.php';
+require_once $zpanelRoot.'inc/dbc.inc.php';
+require_once $zpanelRoot.'dryden/db/driver.class.php';
+require_once $zpanelRoot.'dryden/ctrl/options.class.php';
+require_once $zpanelRoot.'dryden/sys/versions.class.php';
+// Move file, Windows?
+if (sys_versions::ShowOSPlatformVersion() == "Windows")
+{
+	$l = '\\';
+}
+else
+{
+	$l = '/';	
+}
+// set the source and destination
+$src = $zpanelRoot.'modules'.$l.'apc_module'.$l.'_delete-this-after-install'.$l;
+$dst = $zpanelRoot.'modules'.$l.'apc_module'.$l.'frame'.$l;
+// create the destination folder
+error_log($tmp.'Creating '.$dst);
+mkdir($dst, 0777);
+chmod($dst, 0777);
+// copy src files to /modules/module_name/dest
+error_log($tmp.'Moving src files to '.$dst);
+copyFolderContents($src, $dst);
+// remove the App files that were just copied
+removeDirectoryContents($src);
+/*
+| End of File: install.run
+*/
+/* Thanks to VJFTW for sharing the above script ;)*/
+
+// Let's execute files needed
+echo "Please wait while the module install APC packages needed to run APC Module.\n";
+sleep(1);
+$output = shell_exec('yum install php-pear php-devel httpd-devel pcre-devel gcc make -y');
+echo "Installing php-pear php-devel httpd-devel pcre-devel, please wait..\n";
+echo "Checking installed extension. If extension is installed this will skip, please wait..\n";
+sleep(0);
+$output = shell_exec('yum install php-pecl-apc -y');
+echo "This may take some time installing APC packages, please wait....\n";
+sleep(1);
+$output = shell_exec('printf "\y" | pecl upgrade apc');
+echo "Upgrading APC to the latest version, please wait..\n";
+sleep(2);
+echo "Changing APC config files\n";
+$output = shell_exec('rm -f -r /etc/zpanel/panel/modules/apc_module/_delete-this-after-install');
+echo "Cleaning up temp files and folders.....\n";
+sleep(2);
+echo "Creating link to apc.ini and apc.php to code\n\n";
+/* Create system APC sysmlink */
+$output = shell_exec ('cp /usr/share/doc/php-pecl-apc-3.1.9/apc.php /usr/share/doc/php-pecl-apc-3.1.9/apc.php.back');
+$output = shell_exec ('cp /etc/php.d/apc.ini /etc/php.d/apc.ini.back');
+$output = shell_exec('ln -fn /etc/zpanel/panel/modules/apc_module/code/apc.php /usr/share/doc/php-pecl-apc-3.1.9/apc.php');
+$output = shell_exec('chmod 0777 /etc/zpanel/panel/modules/apc_module/code/apc.php');
+/* END OF -- Create system APC sysmlink */
+sleep(2);
+$output = shell_exec('ln -fn /etc/zpanel/panel/modules/apc_module/code/apc.ini /etc/php.d/apc.ini');
+$output = shell_exec('chmod 0777 /etc/zpanel/panel/modules/apc_module/code/apc.ini');
+$output = shell_exec('chmod 0777 /etc/zpanel/panel/modules/apc_module/code/accode.php');
+sleep(2);
+echo "PLEASE TURN OFF DISPLAY ERROR FOR PRODUCTION SERVER\n\n";
+sleep(5);
+$output = shell_exec('service httpd graceful');
+echo "Restarting Apache service\n";
+// End execution files....
+?>

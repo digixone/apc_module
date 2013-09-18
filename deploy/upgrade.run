@@ -1,9 +1,0 @@
-<?php
-//Upgrade interface from 10.0.2 to 10.1.0
-$output = shell_exec('mv /etc/zpanel/panel/modules/apc_module/deploy/module.zpm /etc/zpanel/panel/modules/apc_module/module.zpm');
-echo "Changing 10.0.2 to 10.1.0 interface, please wait....\n";
-sleep(3);
-$output = shell_exec('rm -r -f /etc/zpanel/panel/modules/apc_module/_delete-this-after-install');
-echo "Removing tmp files, please wait....\n";
-sleep(3);
-?>

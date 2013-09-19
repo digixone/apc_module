@@ -1,5 +1,5 @@
 <?php
 include ('noaccess.php');
-defaults('ADMIN_USERNAME','apc');
-defaults('ADMIN_PASSWORD','apcpassword');
+defaults('ADMIN_USERNAME','none?');
+defaults('ADMIN_PASSWORD','pleaseprotectme');
 ?>

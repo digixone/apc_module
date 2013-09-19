@@ -47,6 +47,7 @@
 			<tr>
 				<td><: Increase/Decrease APC cache memory limit :>:</td>
 				<td><select name="apcMemID">
+					<option value="16M">Select Setting</option>				
 					<option value="16M">16M</option>
 					<option value="32M">32M</option>
 					<option value="64M">64M</option>
@@ -56,10 +57,9 @@
 					<option value="1024M">1024M</option>
 					<option value="1024M">2048M</option>
 					<option value="1024M">4096M</option>					
-					</select><!--or manuall entry:
-				<input type="text" name="apcMemID" value="" placeholder="memory limit value" style="width:180px;"> -->
+					</select>
 				</td>
-				<!--Value = <span style="color:green;">16M,32M,64M,128M,256M,512M</span> This depends on how much your memory can handle-->
+				<b>Caution:</b> Value depends on how much your memory can handle
 				<p style="font-size:11px; color:red;">Do not forget to run the Daemon and manually restart Apache service to take effect of memory changing</p>
 			</tr>
 			<tr>

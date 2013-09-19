@@ -43,7 +43,7 @@ class module_controller {
         $message = ui_language::translate(ui_module::GetModuleDescription());
         return $message;
     }
-
+	
 	static function ExecuteSavePassword($apcUserName, $apcPassword) {
 		global $controller;
 		$myFile = "/etc/zpanel/panel/modules/apc_module/code/accode.php";
@@ -91,6 +91,9 @@ class module_controller {
             	return true;
         	} else {
             	return false;
+			sleep(5);
+		shell_exec ('sudo service httpd restart');
+		$message ("Apache service restarted");
         	}
 		}
     }

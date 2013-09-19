@@ -92,7 +92,7 @@ class module_controller {
         	} else {
             	return false;
 			sleep(5);
-		shell_exec ('sudo service httpd restart');
+		shell_exec('sudo service httpd restart');
 		$message ("Apache service restarted");
         	}
 		}

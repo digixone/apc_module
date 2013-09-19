@@ -6,6 +6,7 @@
 <style type="text/css">
 <!--
 body,td,th {
+	background-color: transparent;
 	font-family: Trebuchet MS;
 	font-size: 14px;
 	text-shadow:1px 1px #fff;
@@ -18,28 +19,21 @@ body,td,th {
 	color: #FF0000;
 	font-weight: bold;
 }
+.style5 {
+	color: #EE0000;
+	font-weight: bold;
+}
 -->
 </style></head>
 
 <body>
-<h1 class="style1">Pre-Install check: Install your APC PHP Cache first</h1>
-<p class="style1">"<span class="style2">Passwrod Installation Guide</span>"</p>
+<h2 class="style1">APC Module Information:</h2>
+<p class="style1">"<span class="style2">APC Settings Guide</span>"</p>
 <ul>
-  <li>Open you SSH then login as &quot;ROOT&quot;</li>
-  <li>Configure APC PHP-Cache with the following:</li>
-</ul>
-<ol>
-  <!--<li><strong> yum install php-pecl-apc -y</strong></li>-->
-  <li>Install &quot;<strong>NANO</strong>&quot; if you don't have it. Type this: <em>yum install nano -y</em></li>
-  <li>Change directory to: # <em>cd /etc/zpanel/panel/modules/apc_module/frame</em></li>
-  <li>Type: # <em>nano apc.php</em></li>
-  <li>Edit the Username and Password.</li>
-  <li>Save it.<br />
-  </li>
-</ol>
-<ul>
-  <li>To add more configuration on your &quot;apc.ini&quot; located in /etc/php.d/apc.ini.</li>
-  <li>Go click this link: <a href="http://php.net/manual/en/apc.configuration.php" target="_blank">http://php.net/manual/en/apc.configuration.php</a></li>
+  <li>It is always better to protect your APC PHP Cache login access</li>
+  <li>The default username is &quot;apc&quot; password &quot;apcpassword&quot; you can change this any time.</li>
+  <li>Add more configuration to your &quot;apc.ini&quot;? you can locate this in = /zpanel/modules/apc_module/code/apc.ini.</li>
+  <li>Click this link: <a href="http://php.net/manual/en/apc.configuration.php" target="_blank">http://php.net/manual/en/apc.configuration.php</a> to see options.</li>
 </ul>
 <p class="style1"><span class="style4">NOTES:</span> Do not enable this module to other group such as &quot;User&quot;,&quot;Reseller&quot;. This should only be enabled within Admin Module.</p>
 <p class="style1">See PHP APC Introductions and Configuration: <a href="http://www.php.net/manual/en/book.apc.php" target="_blank">http://www.php.net/manual/en/intro.apc.php</a></p>

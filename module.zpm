@@ -2,7 +2,7 @@
 <div class="zmodule_content" id="zmodule_header_<@ ModuleName @>">
 <div class="zmodule_desc" id="zmodule_desc_<@ ModuleName @>"><p><@ ModuleDesc @></p></div>
 
-<button class="fg-button ui-state-default ui-corner-all" type="button" onClick="window.open('/modules/apc_module/frame/nocode/index.html','popup','width=800,height=800,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><: Pre-Installation Guide :>
+<button class="fg-button ui-state-default ui-corner-all" type="button" onClick="window.open('/modules/apc_module/frame/nocode/index.html','popup','width=800,height=800,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><: Read Me Guide :>
 <button class="fg-button ui-state-default ui-corner-all" type="button" onClick="window.open('/modules/apc_module/frame/frame.php','popup','width=2048,height=1024,scrollbars=yes,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><: Open New Window :></button>
 <a href="#" id="apc_frame_1_a" onClick="toggle_visibility('1')"><button class="fg-button ui-state-default ui-corner-all" type="button"><: View PHP Cache :></button></a>
 

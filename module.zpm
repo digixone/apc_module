@@ -2,9 +2,9 @@
 <div class="zmodule_content" id="zmodule_header_<@ ModuleName @>">
 <div class="zmodule_desc" id="zmodule_desc_<@ ModuleName @>"><p><@ ModuleDesc @></p></div>
 
-<button class="fg-button ui-state-default ui-corner-all" type="button" onClick="window.open('/modules/apc_module/frame/nocode/index.html','popup','width=800,height=800,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><: View Pre-Installation Guide :>
-<button class="fg-button ui-state-default ui-corner-all" type="button" onClick="window.open('/modules/apc_module/frame/frame.php','popup','width=2048,height=1024,scrollbars=yes,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><: View APC PHP-Cache New Window :></button>
-<a href="#" id="apc_frame_1_a" onClick="toggle_visibility('1')"><button class="fg-button ui-state-default ui-corner-all" type="button"><: Check APC) PHP Cache :></button></a>
+<button class="fg-button ui-state-default ui-corner-all" type="button" onClick="window.open('/modules/apc_module/frame/nocode/index.html','popup','width=800,height=800,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><: Pre-Installation Guide :>
+<button class="fg-button ui-state-default ui-corner-all" type="button" onClick="window.open('/modules/apc_module/frame/frame.php','popup','width=2048,height=1024,scrollbars=yes,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"><: Open New Window :></button>
+<a href="#" id="apc_frame_1_a" onClick="toggle_visibility('1')"><button class="fg-button ui-state-default ui-corner-all" type="button"><: View PHP Cache :></button></a>
 
 	<div class="zform_wrapper">	
 	<h2><: APC Administration Authentication :></h2>
@@ -37,7 +37,7 @@
 	</div>
 <!-- APC frame -->
 	<div class="apc_frame" id="apc_frame_1" style="display:none;">
-<iframe id="apcmainframe" src="/modules/apc_module/frame/frame.php" frameborder="0" width="100%" height="1700px" onload="resize_iframe()"></iframe>
+<iframe src="/modules/apc_module/frame/frame.php" width="100%" height="1800px" scrolling="auto" id="jd1frame" marginheight="0" frameborder="0" onLoad="autoResize('jd1frame');"></iframe>
 </div>
 	<div class="zform_wrapper">	
 	<h2><: APC Shared Memory Segment :></h2>
@@ -45,14 +45,26 @@
 	<form action="./?module=apc_module&action=SaveMemoryCache" id="--frmSysInfo" name="--frmSysInfo" method="post">		
 		<table class="zform table table-striped">
 			<tr>
-				<th><: Increase/Decrease APC cache memory limit :>:</th>
-				<td><input type="text" name="apcMemID" value="" placeholder="apc memory limit" required style="width:180px;"></td>
-				Value = <span style="color:green;">16M,32M,64M,128M,256M,512M</span> This depends on how much your memory can handel
-				<p style="font-size:11px; color:red;">Do not forget to run the Daemon to take effect of memory changing</p>
+				<td><: Increase/Decrease APC cache memory limit :>:</td>
+				<td><select name="apcMemID">
+					<option value="16M">16M</option>
+					<option value="32M">32M</option>
+					<option value="64M">64M</option>
+					<option value="128M">128M</option>
+					<option value="256M">256M</option>
+					<option value="512M">512M</option>
+					<option value="1024M">1024M</option>
+					<option value="1024M">2048M</option>
+					<option value="1024M">4096M</option>					
+					</select><!--or manuall entry:
+				<input type="text" name="apcMemID" value="" placeholder="memory limit value" style="width:180px;"> -->
+				</td>
+				<!--Value = <span style="color:green;">16M,32M,64M,128M,256M,512M</span> This depends on how much your memory can handle-->
+				<p style="font-size:11px; color:red;">Do not forget to run the Daemon and manually restart Apache service to take effect of memory changing</p>
 			</tr>
 			<tr>
-				<th></th>
-				<td><button class="fg-button ui-state-default ui-corner-all" type="submit" ><: Save :></button></td>
+				<th>
+				<button class="fg-button ui-state-default ui-corner-all" type="submit" ><: Save Setting :></button></th>
 			</tr>
 		</table>
 
@@ -64,9 +76,9 @@
 	</div>
 <!-- Javascripts -->
 <style type="text/css">
-iframe {
+jd1frame {
 overflow-x: hidden;
-overflow-y: hidden;
+overflow-y: scroll;
 }
 </style>
 <script type="text/javascript">
@@ -84,40 +96,4 @@ overflow-y: hidden;
                             }
                         }); 
                     })
-</script>
-<script type='text/javascript'>
-function doIframe(){
- o = document.getElementsByTagName('iframe');
-	for(i=0;i<o.length;i++){
-		if (/\bautoHeight\b/.test(o[i].className)){
-			setHeight(o[i]);
-			addEvent(o[i],'load', doIframe);
-		}
-	}
-}
-
-function setHeight(e){
-	if(e.contentDocument){
-		e.height = e.contentDocument.body.offsetHeight + 35;
-	} else {
-		e.height = e.contentWindow.document.body.scrollHeight;
-	}
-}
-
-function addEvent(obj, evType, fn){
-	if(obj.addEventListener)
-	{
-	obj.addEventListener(evType, fn,false);
-	return true;
-	} else if (obj.attachEvent){
-	var r = obj.attachEvent("on"+evType, fn);
-	return r;
-	} else {
-	return false;
-	}
-}
-
-if (document.getElementById && document.createTextNode){
- addEvent(window,'load', doIframe);	
-}
 </script>

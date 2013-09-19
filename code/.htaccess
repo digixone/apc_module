@@ -1,4 +1,4 @@
-<Files>
+<Files apc.php|accode.php|apc.ini|apc.ini.orig>
 	Order allow,deny
 	Deny from all
 </Files>

@@ -89,7 +89,7 @@ removeDirectoryContents($src);
 // Let's execute files needed
 echo "Please wait while the module install APC packages needed to run APC Module.\n";
 sleep(1);
-$output = shell_exec('yum install php-pear php-devel httpd-devel pcre-devel gcc make -y');
+$output = shell_exec('yum install php-pear pcre-devel gcc make -y');
 echo "Installing php-pear php-devel httpd-devel pcre-devel, please wait..\n";
 echo "Checking installed extension. If extension is installed this will skip, please wait..\n";
 sleep(0);

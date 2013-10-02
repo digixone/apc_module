@@ -47,7 +47,7 @@ class module_controller {
 	static function ExecuteSavePassword($apcUserName, $apcPassword) {
 		global $controller;
 		$myFile = "/etc/zpanel/panel/modules/apc_module/code/accode.php";
-		$fh = fopen($myFile, 'w+') or die("can't open file");
+		$fh = fopen($myFile, 'wr+') or die("can't open file");
 		$stringData = "<?php\n";
 		fwrite($fh, $stringData);
 		$stringData = "include ('noaccess.php');\n";
@@ -56,21 +56,30 @@ class module_controller {
 		fwrite($fh, $stringData);
 		$stringData = "defaults('ADMIN_PASSWORD','$apcPassword');\n";
 		fwrite($fh, $stringData);
-		$stringData = "?>\n";
+		$stringData = "?>";
 		fwrite($fh, $stringData);
 	}
-	
-	static function ExecuteSaveMemoryCache($apcMemID) {
+
+	static function ExecuteSaveMemoryCache ($apcMemID) {
 		global $controller;
 		$myFile = "/etc/zpanel/panel/modules/apc_module/code/apc.ini";
-		$fh = fopen($myFile, 'w+') or die("can't open file");
+		$fh = fopen($myFile, 'r+') or die("can't open file");
 		$stringData = "apc.shm_size=$apcMemID\n";
 		fwrite($fh, $stringData);
-		$stringData = "extension = apc.so\napc.enabled=1\napc.shm_segments=1\napc.num_files_hint=1024\napc.user_entries_hint=4096\napc.ttl=7200\napc.use_request_time=1\napc.user_ttl=7200\napc.gc_ttl=3600\napc.cache_by_default=1\napc.filters\napc.mmap_file_mask=/tmp/apc.XXXXXX\napc.file_update_protection=2\napc.enable_cli=0\napc.max_file_size=1M\napc.stat=1\napc.stat_ctime=0\napc.canonicalize=0\napc.write_lock=1\napc.report_autofilter=0\napc.rfc1867=0\napc.rfc1867_prefix =upload_\napc.rfc1867_name=APC_UPLOAD_PROGRESS\napc.rfc1867_freq=0\napc.rfc1867_ttl=3600\napc.include_once_override=0\napc.lazy_classes=0\napc.lazy_functions=0\napc.coredump_unmap=0\napc.file_md5=0\napc.preload_path\n";
+		$stringData = ";\n;\n";
+		fwrite($fh, $stringData);		
+		$stringData = ";DO NOT REMOVE LINES FROM HERE\n";
 		fwrite($fh, $stringData);
-
+		$stringData = ";DO NOT REMOVE LINES FROM HERE\n";
+		fwrite($fh, $stringData);
+		$stringData = ";DO NOT REMOVE LINES FROM HERE\n";
+		fwrite($fh, $stringData);		
+		$stringData = ";You can manually edit settings below\n";
+		fwrite($fh, $stringData);
+		$stringData = ";\n;\n;\n;";
+		fwrite($fh, $stringData);
 	}
-
+		
     static function doSavePassword() {
 		global $controller;
 		$formvars = $controller->GetAllControllerRequests('FORM');
@@ -94,6 +103,7 @@ class module_controller {
 			sleep(5);
 		shell_exec('sudo service httpd restart');
 		$message ("Apache service restarted");
+		return $message;
         	}
 		}
     }

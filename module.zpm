@@ -55,8 +55,8 @@
 					<option value="256M">256M</option>
 					<option value="512M">512M</option>
 					<option value="1024M">1024M</option>
-					<option value="1024M">2048M</option>
-					<option value="1024M">4096M</option>					
+					<option value="2048M">2048M</option>
+					<option value="4096M">4096M</option>					
 					</select>
 				</td>
 				<b>Caution:</b> Value depends on how much your memory can handle
